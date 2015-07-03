@@ -15,7 +15,15 @@ Including another URLconf
 """
 from django.conf.urls import include, url
 from django.contrib import admin
+from django.views.generic import TemplateView
 
 urlpatterns = [
+    url(r'^$', TemplateView.as_view(template_name='map.html')),
     url(r'^admin/', include(admin.site.urls)),
+    
+    url(r'^api/', include('nzmeshblock.rest_urls')),
+    url(r'^api-auth/', include('rest_framework.urls',
+                               namespace='rest_framework')),
+
+    url(r'^tinymce/', include('tinymce.urls')),
 ]

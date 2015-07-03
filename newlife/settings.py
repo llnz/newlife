@@ -43,6 +43,8 @@ INSTALLED_APPS = (
     
     'tinymce',
     
+    'nzmeshblock',
+    
 )
 
 MIDDLEWARE_CLASSES = (
