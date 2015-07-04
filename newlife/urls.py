@@ -20,6 +20,7 @@ from django.views.generic import TemplateView
 urlpatterns = [
     url(r'^$', TemplateView.as_view(template_name='map.html')),
     url(r'^chart/$', TemplateView.as_view(template_name='loadjson.html'), name='chart'),
+    url(r'^wgtn/$', TemplateView.as_view(template_name='popupregiontable.html'), name='popup'),
     url(r'^admin/', include(admin.site.urls)),
     
     url(r'^api/', include('nzmeshblock.rest_urls')),

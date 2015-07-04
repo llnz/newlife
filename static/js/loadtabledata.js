@@ -79,7 +79,7 @@ function getLocalityData() {
   //document.getElementById("tabtitle").innerHTML = locality;
   queryJsonAPI(countJobs, "http://api.trademe.co.nz/v1/Categories/5000.json?region=15&with_counts=true");
   queryJsonAPI(countProperties, "http://api.trademe.co.nz/v1/Localities/Region/15.json?with_counts=true");
-  queryJsonAPI(countCrimes, "CrimeStatsWgn.json");
+  queryJsonAPI(countCrimes, "/static/CrimeStatsWgn.json");
 }
 
 getLocalityData()
