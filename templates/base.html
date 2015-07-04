@@ -6,7 +6,7 @@
     <meta name="description" content="">
     <meta name="author" content="">
 	{% load staticfiles %}
-    <title>{% block title %}{% endblock %} - New Life</title>
+    <title>{% block title %}{% endblock %} - Find My NZ</title>
 
     <!-- Bootstrap core CSS -->
     <link href="{% static 'css/bootstrap.css' %}" rel="stylesheet">
@@ -35,12 +35,12 @@
             <span class="icon-bar"></span>
             <span class="icon-bar"></span>
           </button>
-          <a class="navbar-brand" href="/">New Life</a>
+          <a class="navbar-brand" href="/">Find My NZ</a>
         </div>
         <div class="navbar-collapse collapse">
           <ul class="nav navbar-nav">
             <li><a href="/">Home</a></li>
-            
+            <li><a href="{% url 'chart' %}">Chart</a></li>
             
           </ul>
         </div><!--/.nav-collapse -->

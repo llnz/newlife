@@ -9,6 +9,7 @@ from rest_framework_gis import serializers as geo_serializers
 from rest_framework import serializers
 
 from . import models
+from affordability import models as aff_models
 
 
 class CensusSerializer(serializers.ModelSerializer):
@@ -51,9 +52,15 @@ class RegionSerializer(geo_serializers.GeoFeatureModelSerializer):
 
 class TerritorySerializer(geo_serializers.GeoFeatureModelSerializer):
     url = serializers.HyperlinkedIdentityField(view_name='rest-nzmeshblock-territory-detail')
+    avg_rent = serializers.SerializerMethodField()
+    def get_avg_rent(self, obj):
+        try:
+            return aff_models.Rents.objects.get(territory=obj.territory_name).avg_rent
+        except aff_models.Rents.DoesNotExist:
+            return 0
     
     class Meta:
         '''Meta info the ProjectSerializer'''
         model = models.Territory
         geo_field = "area"
-        fields = ('id', 'url', 'territory_name')
+        fields = ('id', 'url', 'territory_name', 'avg_rent')

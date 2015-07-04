@@ -1,18 +1,23 @@
 {% extends 'base.html' %}
 {% load staticfiles %}
 
-{% block title %}New Life{% endblock %}
+{% block title %}Find my New Zealand{% endblock %}
 
 {% block content %}
 
 <div class="page-header">
-<h1>New Life</h1>
+<h1>Find My New Zealand</h1>
 </div>
 
 
       
 <div id="map" style="height: 600px"></div>
 
+<h2>Data from:</h2>
+<ul>
+  <li><a href="http://www.stats.govt.nz/browse_for_stats/Maps_and_geography/Geographic-areas/digital-boundary-files.aspx">StatsNZ, Digital Boundary Files</a></li>
+  <li><a href="http://utilities.dbh.govt.nz/userfiles/open-data/05/geometric-mean-rents-by-ta.csv">Dept Building and Housing, Geometric Mean Rents</a></li>
+</ul>
 {% endblock %}
 
 {% block extrahead %}
@@ -42,10 +47,34 @@
      	.done(function( json ) {
          	columns = json['results'];
          	L.geoJson(columns, {
-		      
+		      style: rent_style,
+		      onEachFeature: addPopupToFeature,
 	    	}).addTo(map);
 	    	
      	}); 
 
+		colours = ['rgb(254,240,217)','rgb(253,204,138)','rgb(252,141,89)','rgb(227,74,51)','rgb(179,0,0)'];
+		function rent_style(feature){
+		    console.log(feature);
+		    colour = 'grey';
+		    if (feature['properties']['avg_rent'] <= 100){
+		      colour = colours[0];
+		   	}else if (feature['properties']['avg_rent'] <= 200){
+		      colour = colours[1];
+		   	}else if (feature['properties']['avg_rent'] <= 300){
+		      colour = colours[2];
+		   	}else if (feature['properties']['avg_rent'] <= 400){
+		      colour = colours[3];
+		   	}else{
+		      colour = colours[4];
+		   	}
+		   	return {color: colour};
+		}
+		
+		function addPopupToFeature(feature, layer) {
+			if (feature.properties) {
+				layer.bindPopup("<strong>" + feature.properties.territory_name + "</strong><br>" + feature.properties.avg_rent);
+			}
+		}
     </script>
 {% endblock %}
