@@ -14,10 +14,13 @@ from . import models
 class CensusSerializer(serializers.ModelSerializer):
     url = serializers.HyperlinkedIdentityField(view_name='rest-nzmeshblock-census-detail')
     meshblocks = serializers.HyperlinkedIdentityField(view_name='rest-nzmeshblock-meshblock-list')
+    areas = serializers.HyperlinkedIdentityField(view_name='rest-nzmeshblock-area-list')
+    regions = serializers.HyperlinkedIdentityField(view_name='rest-nzmeshblock-region-list')
+    territories = serializers.HyperlinkedIdentityField(view_name='rest-nzmeshblock-territory-list')
     
     class Meta:
         model = models.Census
-        fields = ('url', 'year', 'meshblocks')
+        fields = ('url', 'year', 'meshblocks', 'areas', 'regions', 'territories')
 
 class MeshblockSerializer(geo_serializers.GeoFeatureModelSerializer):
     url = serializers.HyperlinkedIdentityField(view_name='rest-nzmeshblock-meshblock-detail')
@@ -26,4 +29,31 @@ class MeshblockSerializer(geo_serializers.GeoFeatureModelSerializer):
         '''Meta info the ProjectSerializer'''
         model = models.Meshblock
         geo_field = "area"
-        fields = ('id', 'url', 'census', 'name', 'population')
+        fields = ('id', 'url', 'census', 'mb_id', 'area_unit', 'region')
+
+class AreaSerializer(geo_serializers.GeoFeatureModelSerializer):
+    url = serializers.HyperlinkedIdentityField(view_name='rest-nzmeshblock-area-detail')
+    
+    class Meta:
+        '''Meta info the ProjectSerializer'''
+        model = models.Area
+        geo_field = "area"
+        fields = ('id', 'url', 'area_name')
+        
+class RegionSerializer(geo_serializers.GeoFeatureModelSerializer):
+    url = serializers.HyperlinkedIdentityField(view_name='rest-nzmeshblock-region-detail')
+    
+    class Meta:
+        '''Meta info the ProjectSerializer'''
+        model = models.Region
+        geo_field = "area"
+        fields = ('id', 'url', 'region_name')
+
+class TerritorySerializer(geo_serializers.GeoFeatureModelSerializer):
+    url = serializers.HyperlinkedIdentityField(view_name='rest-nzmeshblock-territory-detail')
+    
+    class Meta:
+        '''Meta info the ProjectSerializer'''
+        model = models.Territory
+        geo_field = "area"
+        fields = ('id', 'url', 'territory_name')

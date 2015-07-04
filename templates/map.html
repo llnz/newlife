@@ -25,8 +25,7 @@
     <script>
       var map = L.map('map').setView([-43., 172.], 5);
       
-      L.tileLayer('http://otile2.mqcdn.com/tiles/1.0.0/map/{z}/{x}/{y}.png', 
-                  { attribution: 'Tiles Courtesy of <a href="http://www.mapquest.com/" target="_blank">MapQuest</a> <img src="http://developer.mapquest.com/content/osm/mq_logo.png">, &copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'}).addTo(map);
+      L.tileLayer('http://{s}.tile.osm.org/{z}/{x}/{y}.png', { attribution: '&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'}).addTo(map);
       
       //function onMapClick(e) {
       //      alert("You clicked the map at " + e.latlng);
@@ -35,7 +34,18 @@
       
       L.control.scale({imperial: false}).addTo(map);
       
-	  
+	  area_url = "{% url 'rest-nzmeshblock-territory-list' 2013 %}";
+	  $.ajax({
+    		url: area_url,
+      		dataType: 'json',
+     	})
+     	.done(function( json ) {
+         	columns = json['results'];
+         	L.geoJson(columns, {
+		      
+	    	}).addTo(map);
+	    	
+     	}); 
 
     </script>
 {% endblock %}

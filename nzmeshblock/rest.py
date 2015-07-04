@@ -28,13 +28,59 @@ class CensusDetail(generics.RetrieveAPIView):
 class MeshblockList(generics.ListAPIView):
     '''REST API list view of comments'''
     serializer_class = serialisers.MeshblockSerializer
+    pagination_class = VeryLargePagePagination
 
     def get_queryset(self):
         census = generics.get_object_or_404(models.Census.objects.all(),
                                            year=int(self.kwargs['year']))
-        return census.route_set.all()
+        return census.meshblock_set.all()
 
 class MeshblockDetail(generics.RetrieveAPIView):
     '''REST API detail view of comments'''
     serializer_class = serialisers.MeshblockSerializer
     queryset = models.Meshblock.objects.all()
+
+class AreaList(generics.ListAPIView):
+    '''REST API list view of comments'''
+    serializer_class = serialisers.AreaSerializer
+    pagination_class = VeryLargePagePagination
+
+    def get_queryset(self):
+        census = generics.get_object_or_404(models.Census.objects.all(),
+                                           year=int(self.kwargs['year']))
+        return census.area_set.all()
+
+class AreaDetail(generics.RetrieveAPIView):
+    '''REST API detail view of comments'''
+    serializer_class = serialisers.AreaSerializer
+    queryset = models.Area.objects.all()
+
+class RegionList(generics.ListAPIView):
+    '''REST API list view of comments'''
+    serializer_class = serialisers.RegionSerializer
+    pagination_class = VeryLargePagePagination
+
+    def get_queryset(self):
+        census = generics.get_object_or_404(models.Census.objects.all(),
+                                           year=int(self.kwargs['year']))
+        return census.region_set.all()
+
+class RegionDetail(generics.RetrieveAPIView):
+    '''REST API detail view of comments'''
+    serializer_class = serialisers.RegionSerializer
+    queryset = models.Region.objects.all()
+
+class TerritoryList(generics.ListAPIView):
+    '''REST API list view of comments'''
+    serializer_class = serialisers.TerritorySerializer
+    pagination_class = VeryLargePagePagination
+
+    def get_queryset(self):
+        census = generics.get_object_or_404(models.Census.objects.all(),
+                                           year=int(self.kwargs['year']))
+        return census.territory_set.all()
+
+class TerritoryDetail(generics.RetrieveAPIView):
+    '''REST API detail view of comments'''
+    serializer_class = serialisers.TerritorySerializer
+    queryset = models.Territory.objects.all()
