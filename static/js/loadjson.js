@@ -123,6 +123,6 @@ function readJSON(handleData, dataFile) {
 }
 
 //readJSON(logData, "jobs.json");
-readJSON(plotJobs, "jobs.json");
+readJSON(plotJobs, "/static/jobs.json");
 //readJSON(logData, "properties.json");
-readJSON(plotProperties, "properties.json");
+readJSON(plotProperties, "/static/properties.json");
