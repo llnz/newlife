@@ -2,6 +2,40 @@ function logData(data) {
   console.log(data);
 }
 
+function readJSON(handleData, dataFile) {
+    var div_id = "jobsdata";
+
+    //var dataFile = "jobs.json";
+
+    $.ajax({
+        url: dataFile,
+        dataType: "text",
+        success: function(data){
+            //var obj = JSON.parse(data);
+            //console.log(obj);
+            handleData(JSON.parse(data));
+        },
+        error: function(){
+            alert("Error loading file");
+        }
+    });
+}
+
+function queryJsonAPI(handleData, urlAPI) {
+  $.ajax({
+    url: urlAPI,
+    dataType: "text",
+    success: function(data){
+        //var obj = JSON.parse(data);
+        //console.log(obj);
+        handleData(JSON.parse(data));
+    },
+    error: function(){
+        alert("Error loading file");
+    }
+  });
+}
+
 function plotJobs(rawData) {
   var subCategories = rawData['Subcategories'];
   //console.log("subCat", subCategories);
@@ -31,9 +65,9 @@ function plotJobs(rawData) {
         type: 'category',
         categories: xlabels
       }
-    }
+    },
+    legend: {hide: true}
   });
-
 }
 
 function plotProperties(rawData) {
@@ -69,7 +103,8 @@ function plotProperties(rawData) {
         type: 'category',
         categories: xlabels
       }
-    }
+    },
+    legend: {hide: true}
   });
 }
 
@@ -102,27 +137,9 @@ function plotPropertiesSuburbs(rawData) {
   });
 }*/
 
-//jQuery.ready = function() {
-function readJSON(handleData, dataFile) {
-    var div_id = "jobsdata";
-
-    //var dataFile = "jobs.json";
-
-    $.ajax({
-        url: dataFile,
-        dataType: "text",
-        success: function(data){
-            //var obj = JSON.parse(data);
-            //console.log(obj);
-            handleData(JSON.parse(data));
-        },
-        error: function(){
-            alert("Error loading file");
-        }
-    });
-}
-
+queryJsonAPI(plotJobs, "http://api.trademe.co.nz/v1/Categories/5000.json?region=15&with_counts=true")
+queryJsonAPI(plotProperties, "http://api.trademe.co.nz/v1/Localities/Region/15.json?with_counts=true")
 //readJSON(logData, "jobs.json");
-readJSON(plotJobs, "jobs.json");
+//readJSON(plotJobs, "jobs.json");
 //readJSON(logData, "properties.json");
-readJSON(plotProperties, "properties.json");
+//readJSON(plotProperties, "properties.json");
