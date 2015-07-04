@@ -35,7 +35,8 @@ def meshblock_shapefile(filename, year):
             g = OGRGeometry(OGRGeomType('MultiPolygon'))
             g.add(mb_item.geom)
             g.transform(transform)
-            meshblock.area = g.ewkt
+            mpg = MultiPolygon([Polygon(*[[(x, y) for (x, y, z) in inner] for inner in middle], srid=lyr.srs.srid) for middle in g.coords], srid=lyr.srs.srid)
+            meshblock.area = mpg.ewkt
             meshblock.mb_id = mb_item['MB2013']
             meshblock.region = mb_item['REGC2013_N']
             meshblock.territory = mb_item['TA2013_NAM']
@@ -65,7 +66,8 @@ def area_shapefile(filename, year):
             g = OGRGeometry(OGRGeomType('MultiPolygon'))
             g.add(mb_item.geom)
             g.transform(transform)
-            area.area = g.ewkt
+            mpg = MultiPolygon([Polygon(*[[(x, y) for (x, y, z) in inner] for inner in middle], srid=lyr.srs.srid) for middle in g.coords], srid=lyr.srs.srid)
+            area.area = mpg.ewkt
             area.area_name = mb_item['AU2013_NAM']
             
             area.save()
@@ -120,7 +122,8 @@ def territory_shapefile(filename, year):
             g = OGRGeometry(OGRGeomType('MultiPolygon'))
             g.add(mb_item.geom)
             g.transform(transform)
-            territory.area = g.ewkt
+            mpg = MultiPolygon([Polygon(*[[(x, y) for (x, y, z) in inner] for inner in middle], srid=lyr.srs.srid) for middle in g.coords], srid=lyr.srs.srid)
+            territory.area = mpg.ewkt
             territory.territory_name = mb_item['TA2013_NAM']
             
             territory.save()
