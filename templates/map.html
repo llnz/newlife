@@ -73,7 +73,7 @@
 		
 		function addPopupToFeature(feature, layer) {
 			if (feature.properties) {
-				layer.bindPopup("<strong>" + feature.properties.territory_name + "</strong><br>" + feature.properties.avg_rent);
+				layer.bindPopup("<strong>" + feature.properties.territory_name + "</strong><br>Avg Rent: $" + feature.properties.avg_rent);
 			}
 		}
     </script>
