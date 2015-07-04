@@ -25,7 +25,7 @@ SECRET_KEY = 'k88_v(c1@-z9njx696ii(qyo5rh*tblyfzi8qinbmw02^eij97'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = ENV('DEBUG')
 
-ALLOWED_HOSTS = ['newlife.begg.digital']
+ALLOWED_HOSTS = ['newlife.begg.digital', 'findmynz.begg.digital']
 
 
 # Application definition
