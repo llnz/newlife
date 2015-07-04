@@ -10,6 +10,7 @@ function readJSON(handleData, dataFile) {
     $.ajax({
         url: dataFile,
         dataType: "text",
+        mimeType: "application/json",
         success: function(data){
             //var obj = JSON.parse(data);
             //console.log(obj);
@@ -25,6 +26,7 @@ function queryJsonAPI(handleData, urlAPI) {
   $.ajax({
     url: urlAPI,
     dataType: "text",
+    mimeType: "application/json",
     success: function(data){
         //var obj = JSON.parse(data);
         //console.log(obj);
@@ -108,38 +110,5 @@ function plotProperties(rawData) {
   });
 }
 
-  /*
-function plotPropertiesSuburbs(rawData) {
-  var welLabels = [];
-  var welCounts = ["Counts"];
-  for (var i=0; i<wellingtonSubs.length; i++) {
-    //console.log(wellingtonSubs[i]);
-    welLabels.push(wellingtonSubs[i]["Name"]);
-
-    if (wellingtonSubs[i]["Count"] != undefined) {
-      welCounts.push(wellingtonSubs[i]["Count"]);
-    }
-    else {
-      welCounts.push(0);
-    }
-  }
-  console.log(welLabels);
-  console.log(welCounts);
-  var chartWellington = c3.generate({
-    bindto: '#propertiesWellingtonchart',
-    data: welCounts,
-    axis: {
-      x: {
-        type: 'category',
-        categories: welLabels
-      }
-    }
-  });
-}*/
-
 queryJsonAPI(plotJobs, "http://api.trademe.co.nz/v1/Categories/5000.json?region=15&with_counts=true")
 queryJsonAPI(plotProperties, "http://api.trademe.co.nz/v1/Localities/Region/15.json?with_counts=true")
-//readJSON(logData, "jobs.json");
-//readJSON(plotJobs, "jobs.json");
-//readJSON(logData, "properties.json");
-//readJSON(plotProperties, "properties.json");
