@@ -6,6 +6,7 @@ Created on 4/07/2015
 from __future__ import unicode_literals, print_function, absolute_import
 
 from django.contrib.gis.gdal import DataSource, OGRGeometry, OGRGeomType, CoordTransform
+from django.contrib.gis.geos import MultiPolygon, Polygon
 from django.db import transaction, connections, router
 from django.utils import timezone
 
@@ -91,7 +92,8 @@ def region_shapefile(filename, year):
             g = OGRGeometry(OGRGeomType('MultiPolygon'))
             g.add(mb_item.geom)
             g.transform(transform)
-            region.area = g.ewkt
+            mpg = MultiPolygon([Polygon(*[[(x, y) for (x, y, z) in inner] for inner in middle], srid=lyr.srs.srid) for middle in g.coords], srid=lyr.srs.srid)
+            region.area = mpg.ewkt
             region.region_name = mb_item['REGC2013_N']
             
             region.save()
