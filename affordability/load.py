@@ -34,7 +34,7 @@ def import_rents(filename):
                 
             robj = models.Rents()
             robj.date = datetime.datetime.strptime(last['Date.Lodged'], '%d/%m/%Y').date()
-            robj.territory = field
+            robj.territory = territory_name
             robj.avg_rent = float(last[field])
             robj.save()
 
