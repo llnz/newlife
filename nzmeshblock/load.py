@@ -1,4 +1,8 @@
-'''
+'''Import Meshblock/region information
+
+For NZ, download from http://www.stats.govt.nz/browse_for_stats/Maps_and_geography/Geographic-areas/digital-boundary-files.aspx
+
+
 Created on 4/07/2015
 
 @author: lee
@@ -8,7 +12,6 @@ from __future__ import unicode_literals, print_function, absolute_import
 from django.contrib.gis.gdal import DataSource, OGRGeometry, OGRGeomType, CoordTransform
 from django.contrib.gis.geos import MultiPolygon, Polygon
 from django.db import transaction, connections, router
-from django.utils import timezone
 
 
 from . import models

@@ -14,6 +14,15 @@ from . import models
 
 @transaction.atomic
 def import_rents(filename):
+    '''Load the average rents per TA.
+    
+    For NZ, download the data from
+    
+    http://www.building.govt.nz/nz-housing-and-construction-quarterly-open-data
+    
+    IE:
+    http://utilities.dbh.govt.nz/userfiles/open-data/05/geometric-mean-rents-by-ta.csv
+    '''
     with open(filename, 'rb') as fileobj:
         csvreader = csv.DictReader(fileobj)
         
